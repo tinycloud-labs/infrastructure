@@ -1,4 +1,4 @@
 apiVersion: v2
-name: apps
+name: unichart
 version: 0.0.1
 description: A generic Helm chart for deploying stateful applications
