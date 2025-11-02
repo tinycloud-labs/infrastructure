@@ -1,7 +1,8 @@
-🎉 {{ .Chart.Name }}: {{- $fullName := include "app.fullname" . }} has been successfully deployed!
+🎉 {{ .Release.Name }}: {{- $fullName := include "app.fullname" . }} has been successfully deployed!
 
 🚀 App Info:
   Release Name: {{ .Release.Name }}
+  Chart Name: {{ .Chart.Name }}
   Replicas: {{ .Values.app.replicaCount }}
   App Container Port: {{ .Values.app.containerPort }}
   Service Port: {{ .Values.app.service.port }}
