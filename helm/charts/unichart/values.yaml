@@ -1,17 +1,20 @@
 ---
 #
-# Values for unichart.
+# Generic Helm chart values.yaml for deploying applications with optional database, ingress, and NFS-backed storage.
+#
+## ------------ General Specifications ------------ ##
 #
 namespace: ""
 
-#
 # Optional: Override the full name of the release (metadata.name).
 fullnameOverride: ""
 
-#
 # Optional: Override just the name portion of the Helm release.
 nameOverride: ""
 
+#
+## ------------ App Deployment Specifications ------------ ##
+#
 app:
   name: ""
   image:
@@ -25,6 +28,9 @@ app:
   containerPort: 80
 
   service:
+    # Leave it empty to use default ClusterIP service type.
+    # type: ClusterIP
+
     # The port exposed by the K8s Service.
     port: 80
     # The targetPort that maps to containerPort.
@@ -75,7 +81,8 @@ app:
     failureThreshold: 3
 
 #
-# Database configuration for StatefulApps. It will create a statefulset and headless service.
+## ------------ StatefulSet Specifications ------------ ##
+#
 database:
   enabled: false
 
@@ -112,6 +119,9 @@ database:
   affinity: {}
 
 #
+## ------------ Storage Specifications ------------ ##
+#
+#
 # If you have an existing PersistentVolumeClaim. To be shared by app + db.
 # Otherwise, use `nfs-persistent-volume` to create a new PVC.
 # Each container will mount their subPaths within this PVC.
@@ -146,7 +156,8 @@ persistence:
     path: ""
 
 #
-# Ingress configuration
+## ------------ Ingress Specifications ------------ ##
+#
 ingress:
   enabled: true
 
