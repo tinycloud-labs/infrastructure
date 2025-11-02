@@ -13,7 +13,7 @@ fullnameOverride: ""
 nameOverride: ""
 
 app:
-  name: "stateless-app"
+  name: ""
   image:
     repository: ""
     tag: ""
