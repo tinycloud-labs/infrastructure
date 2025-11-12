@@ -26,8 +26,8 @@ inputs = {
 # So, relative paths like "../csi-driver-nfs" may not resolve correctly
 # depending on how the stack names and structures its units.
 dependency "loadbalancer" {
-    config_path = "../loadbalancer/"
-    mock_outputs = {
-        loadbalancer-mock-output = "loadbalancer-mock-output"
-    }
+  config_path = "../loadbalancer/"
+  mock_outputs = {
+    loadbalancer-mock-output = "loadbalancer-mock-output"
+  }
 }

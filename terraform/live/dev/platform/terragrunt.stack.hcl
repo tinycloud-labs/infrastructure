@@ -55,3 +55,19 @@ unit "nginx-ingress" {
     config_context = local.common.locals.kubeconfig_context
   }
 }
+
+unit "flux" {
+  source = "${get_repo_root()}/terraform/catalog/units/flux"
+  path   = "flux"
+  values = {
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
+
+    github_org        = "tinycloud-labs"
+    github_repository = "flux"
+    # github_token      = ""
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
+    path           = "clusters/dev"
+  }
+}
