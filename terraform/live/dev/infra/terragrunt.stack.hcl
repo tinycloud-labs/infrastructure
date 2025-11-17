@@ -1,5 +1,5 @@
 #
-# Terragrunt stack for deploying:
+# Terragrunt stack for deploying - dev environment with:
 #   - Proxmox VMs + K3s Ansible playbook as a post-hook trigger
 #   - Cert Manager
 #   - Github Actions Runner Controller.
@@ -57,7 +57,7 @@ unit "gha-arc" {
     config_path    = local.common.locals.kubeconfig_path
     config_context = local.common.locals.kubeconfig_context
     shared_labels = {
-      "app.kubernetes.io/managed-by" = "terraform",
+      "app.kubernetes.io/managed-by" = "terragrunt",
       "app.github.com/name"          = "runners-app-shakir-cloud"
     }
   }
