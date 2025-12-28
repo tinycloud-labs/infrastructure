@@ -33,21 +33,19 @@ jobs:
     runs-on: ${{ inputs.runner-label }}
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
-      - name: Checkout
-        uses: shakir85/checkout@v4
+      - uses: shakir85/checkout@v4
 
-      - name: Generate
+      - name: Generate Stack
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: ${{ env.working_dir }}
-          tg_command: "stack run generate"
+          tg_command: "stack generate --source-update"
 
   destroy:
     runs-on: ${{ inputs.runner-label }}
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
-      - name: Checkout
-        uses: shakir85/checkout@v4
+      - uses: shakir85/checkout@v4
 
       - name: Destroy Unit
         uses: gruntwork-io/terragrunt-action@v3
