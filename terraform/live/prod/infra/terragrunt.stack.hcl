@@ -51,16 +51,3 @@ unit "cert-manager" {
     config_context = local.common.locals.kubeconfig_context
   }
 }
-
-unit "gha-arc" {
-  source = "${get_repo_root()}/terraform/catalog/units/gha-arc"
-  path   = "gha-arc"
-  values = {
-    config_path    = local.common.locals.kubeconfig_path
-    config_context = local.common.locals.kubeconfig_context
-    shared_labels = {
-      "app.kubernetes.io/managed-by" = "terragrunt",
-      "app.github.com/name"          = "runners-app-shakir-cloud"
-    }
-  }
-}
