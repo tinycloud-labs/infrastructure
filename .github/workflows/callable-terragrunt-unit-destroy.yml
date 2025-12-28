@@ -1,4 +1,4 @@
-name: Callable - Terragrunt Destroy
+name: Callable - Terragrunt Unit Destroy
 
 on:
   workflow_call:
@@ -43,6 +43,7 @@ jobs:
 
   destroy:
     runs-on: ${{ inputs.runner-label }}
+    needs: generate
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: shakir85/checkout@v4
