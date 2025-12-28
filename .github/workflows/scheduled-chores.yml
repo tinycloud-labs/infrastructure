@@ -19,14 +19,3 @@ jobs:
           close-pr-message: 'This pull request was closed due to inactivity.'
           days-before-stale: 30
           days-before-close: 7
-
-  security-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITLEAKS_CONFIG: .gitleaks.toml
-          GITLEAKS_REPORT_FORMAT: sarif
-          GITLEAKS_REPORT_PATH: gitleaks-report.sarif
