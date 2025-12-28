@@ -29,7 +29,7 @@ env:
   TF_VAR_github_token: ${{ secrets.TF_VAR_GITHUB_TOKEN }}
 
 jobs:
-  generate:
+  destroy:
     runs-on: ${{ inputs.runner-label }}
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
@@ -40,13 +40,6 @@ jobs:
         with:
           tg_dir: ${{ env.working_dir }}
           tg_command: "stack generate --source-update"
-
-  destroy:
-    runs-on: ${{ inputs.runner-label }}
-    needs: generate
-    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
-    steps:
-      - uses: shakir85/checkout@v4
 
       - name: Destroy Unit
         uses: gruntwork-io/terragrunt-action@v3
