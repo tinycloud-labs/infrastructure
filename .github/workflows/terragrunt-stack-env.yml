@@ -14,6 +14,7 @@ on:
           - prod
       stack:
         description: 'What stack to deploy'
+        required: true
         type: choice
         options:
           - infra
