@@ -6,11 +6,11 @@ on:
       unit-name:
         type: string
         required: true
-        description: "Name of the unit to run"
+        description: "Terragrunt unit to run"
       run-type:
         type: string
         required: true
-        description: "Terragrunt commands: apply or destroy"
+        description: "Terragrunt command: apply or destroy"
       module-path:
         type: string
         required: true
@@ -19,7 +19,7 @@ on:
         type: string
         required: false
         default: "controller"
-        description: "Label of the self-hosted runner to use"
+        description: "Self-hosted runner label to use"
 
 env:
   working_dir: ${{ inputs.module-path }}
@@ -33,7 +33,7 @@ env:
   TF_VAR_github_token: ${{ secrets.TF_VAR_GITHUB_TOKEN }}
 
 jobs:
-  destroy:
+  manage-unit:
     runs-on: ${{ inputs.runner-label }}
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
@@ -45,7 +45,7 @@ jobs:
           tg_dir: ${{ env.working_dir }}
           tg_command: "stack generate --source-update"
 
-      - name: Destroy Unit
+      - name: Manage Terragrunt Unit
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: ${{ env.working_dir }}/.terragrunt-stack/${{ inputs.unit-name }}

@@ -1,11 +1,11 @@
 name: Terragrunt Manage Unit
-run-name: Terragrunt ${{ inputs.type }} - Unit ${{ github.event.inputs.unit }} on ${{ github.event.inputs.environment }}
+run-name: Terragrunt ${{ inputs.type }} - Unit ${{ github.event.inputs.unit }} Env ${{ github.event.inputs.environment }}
 
 on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Which environment to destroy unit from'
+        description: 'Target environment'
         required: true
         type: choice
         default: 'dev'
@@ -13,7 +13,7 @@ on:
           - dev
           - prod
       stack:
-        description: 'What stack to to destroy unit from'
+        description: 'Target stack'
         required: true
         type: choice
         options:
@@ -21,7 +21,7 @@ on:
           - platform
       unit:
         required: true
-        description: 'Which unit to destroy'
+        description: 'Tagrte unit'
         type: string
       type:
         required: true
