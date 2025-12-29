@@ -1,14 +1,15 @@
-name: TF Lint
+name: Terragrunt HCL Format
 
 on:
-  workflow_call:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    paths:
+      - "terraform/live/**"
+      - "terraform/catalog/units/**"
 
 jobs:
-  code-lint:
-    runs-on: self-hosted
-    container:
-      image: ghcr.io/tinycloud-labs/tf-tools:latest
-
+  format:
+    runs-on: ubuntu-latest
     steps:
       - uses: shakir85/checkout@v4
         with:
@@ -22,16 +23,16 @@ jobs:
           git fetch origin ${{ github.head_ref }}
           git pull origin ${{ github.head_ref }}
 
-      - name: Format Terraform code
-        run: cd terraform/catalog/modules && terraform fmt -recursive
-
-      - name: Lint Terraform code
-        run: tflint --recursive  --chdir terraform/catalog/modules
+      - name: Format HCL files
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_dir: 'terraform/live'
+          tg_command: 'hcl fmt'
 
       - name: Commit changes
         run: |
           git add -A
-          git commit -m "chore: auto-format Terraform files [skip ci]" || echo "No changes to commit"
+          git commit -m "🤖 chore: Terragrunt HCL lint [skip ci]" || echo "No changes to commit"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -11,9 +11,6 @@ tool-terraform:
 tool-terragrunt:
   - changed-files:
       - any-glob-to-any-file: "terraform/catalog/units/**/*"
-
-tool-terragrunt:
-  - changed-files:
       - any-glob-to-any-file: "terraform/live/**/*"
 
 tool-ansible:
