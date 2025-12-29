@@ -46,16 +46,6 @@ unit "metallb-cr" {
   }
 }
 
-unit "nginx-ingress" {
-  source = "${get_repo_root()}/terraform/catalog/units/nginx-ingress"
-  path   = "nginx-ingress"
-  values = {
-    kube_namespace = "nginx-ingress"
-    config_path    = local.common.locals.kubeconfig_path
-    config_context = local.common.locals.kubeconfig_context
-  }
-}
-
 unit "flux" {
   source = "${get_repo_root()}/terraform/catalog/units/flux"
   path   = "flux"
