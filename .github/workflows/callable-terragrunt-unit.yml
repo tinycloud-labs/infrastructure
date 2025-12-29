@@ -1,4 +1,4 @@
-name: Callable - Terragrunt Unit Destroy
+name: Callable - Terragrunt Unit Run
 
 on:
   workflow_call:
@@ -6,7 +6,11 @@ on:
       unit-name:
         type: string
         required: true
-        description: "Name of the unit to destroy"
+        description: "Name of the unit to run"
+      run-type:
+        type: string
+        required: true
+        description: "Terragrunt commands: apply or destroy"
       module-path:
         type: string
         required: true
@@ -45,5 +49,5 @@ jobs:
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: ${{ env.working_dir }}/.terragrunt-stack/${{ inputs.unit-name }}
-          tg_command: "stack run destroy"
+          tg_command: "stack run ${{ inputs.run-type }}"
           tg_add_approve: true

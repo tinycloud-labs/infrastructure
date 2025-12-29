@@ -1,5 +1,5 @@
-name: Terragrunt Destroy Unit
-run-name: Destroy Terragrunt Unit ${{ github.event.inputs.unit }} on ${{ github.event.inputs.environment }}
+name: Terragrunt Manage Unit
+run-name: Terragrunt ${{ inputs.type }} - Unit ${{ github.event.inputs.unit }} on ${{ github.event.inputs.environment }}
 
 on:
   workflow_dispatch:
@@ -23,11 +23,19 @@ on:
         required: true
         description: 'Which unit to destroy'
         type: string
+      type:
+        required: true
+        description: 'Terragrunt apply or destroy'
+        type: choice
+        options:
+          - apply
+          - destroy
 
 jobs:
   stack:
-    uses: ./.github/workflows/callable-terragrunt-unit-destroy.yml
+    uses: ./.github/workflows/callable-terragrunt-unit.yml
     secrets: inherit
     with:
       module-path: terraform/live/${{ inputs.environment }}/${{ inputs.stack }}
       unit-name: ${{ inputs.unit }}
+      run-type: ${{ inputs.type }}
