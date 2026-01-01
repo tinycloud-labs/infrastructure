@@ -1,5 +1,5 @@
 ![GitHub](https://img.shields.io/github/v/release/tinycloud-labs/infrastructure) 
-![Terragrunt Stack](https://github.com/tinycloud-labs/infrastructure/actions/workflows/terragrunt-stack-env.yml/badge.svg) 
+![Terragrunt Stack](https://github.com/tinycloud-labs/infrastructure/actions/workflows/terragrunt-deploy-stack.yml/badge.svg) 
 ![Terragrunt Environment](https://github.com/tinycloud-labs/infrastructure/actions/workflows/terragrunt-deploy-env.yml/badge.svg) 
 ![License](https://img.shields.io/github/license/tinycloud-labs/infrastructure) 
 ![Issues](https://img.shields.io/github/issues/tinycloud-labs/infrastructure)
