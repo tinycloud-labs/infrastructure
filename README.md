@@ -14,7 +14,7 @@ The IaC is constructed using the below K8s and Terragrunt logical design
 
 ### Kubernetes
 
-K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Order of resource deployment is based on resource existence (dependency), which determines the overall order of operations:
+K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Order of resource deployment is based on resource existence (dependency):
 
 ```
         ┌───────────────────────────────────────────┐
@@ -23,12 +23,12 @@ K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Or
                             │ depends on
         ┌───────────────────▼───────────────────────┐
         │          Platform  (Terragrunt)           │
-        │ MetalLB, Flux, Nginx ingress, runner, etc │
+        │          MetalLB, Flux,  etc              │
         └───────────────────┬───────────────────────┘
                             │ depends on
         ┌───────────────────▼──────────────────────┐
         │   Infrastructure (Terragrunt + Ansible)  │
-        │       VMs + K3s + Github Actions         │
+        │                VMs + K3s.                │
         └──────────────────────────────────────────┘
 ```
 
@@ -36,7 +36,7 @@ Each layer in the diagram is represented as a corresponding Terragrunt stack, [f
 
 ### Terragrunt 
 
-Organized around the following logical hierarchy, implemented using Terragrunt [stacks](https://terragrunt.gruntwork.io/docs/features/stacks/) and [units](https://terragrunt.gruntwork.io/docs/features/units/) primitives:
+Organized around the following logical hierarchy (using Terragrunt [stacks](https://terragrunt.gruntwork.io/docs/features/stacks/) and [units](https://terragrunt.gruntwork.io/docs/features/units/)):
 
 ```
 Environment (prod/dev) > Stack > Units
@@ -45,16 +45,19 @@ Environment (prod/dev) > Stack > Units
 
 | Environment | a collection of stacks representing the full environment (platform + infrastructure layers) |
 | --- | --- |
-| **Stack** | **a collection of units representing a middleware or core platform layer (e.g., `gha-arc`, `cert-manager`, etc)** |
-| **Unit** | **a Terraform module representing a specific tool or resource (e.g., `cert-manager`, VM, etc)**
+| **Stack** | **a collection of units representing a complete middleware  layer (e.g., `terraform/live/prod/infra/`, etc)** |
+| **Unit** | **a Terragrunt thin wrapper around a Terraform module representing a specific tool or resource (e.g., `terraform/catalog/units/loadbalancer/`)**
 
 
 ## Terraform State
 
-State files are dynamically generated on the first run (thanks to Terragrunt's `generate` blocks) and organized in S3 cleanly as:  `live/<env>/<stack>/.terragrunt-stack/<unit>` pretty much mirroring the repo's directory hierarchy (separation across boundaries). 
+State files are dynamically generated on the first run (thanks to Terragrunt's `generate` blocks), constructed via the `terraform/root.hcl` and organized in S3 cleanly as:  `live/<env>/<stack>/.terragrunt-stack/<unit>` pretty much mirroring the repo's directory hierarchy (separation across boundaries).
 
-## Automation
+## Automation and other stuff
 
-- **Infrastructure**: GitHub Actions designed to handle deployments at both the Terragrunt stack and full-environment level, while supporting helper workflows and tools such as labelers, linters, and other code management and quality workflows.
+- Infrastructure: GitHub Actions to handle Terragrunt stacks and full-environment, as well as some helper workflows for code management.
+- Applications deployment: Hosted in a [separated repo](https://github.com/tinycloud-labs/flux), deployed in a GitOps fashion by FluxCD.
+- Helm Charts: Custom Helm charts released and hosted to Github Pages https://github.com/tinycloud-labs/helm
 
-- **Applications**: Hosted in a [separated repo](https://github.com/tinycloud-labs/flux), deployed in a GitOps fashion, managed by FluxCD.
+## Networking (not in code)
+- Pfsense: Firewall, DNS, HAProxy, VLANs, VPN, and ACME cert-management and rotation.
