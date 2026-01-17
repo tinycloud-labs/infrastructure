@@ -7,7 +7,7 @@ include "root" {
 }
 
 terraform {
-  source = "git::https://github.com/tinycloud-labs/tf-modules.git//external-secrets?ref=0.3.11"
+  source = "git::https://github.com/tinycloud-labs/tf-modules.git//external-secrets?ref=main"
 }
 
 # uses the module's default value for the kube-namespace (= external-secrets)
