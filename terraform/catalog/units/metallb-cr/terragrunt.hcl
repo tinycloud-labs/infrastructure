@@ -7,7 +7,7 @@ include "root" {
 }
 
 terraform {
-  source = "git::https://github.com/tinycloud-labs/tf-modules.git//metallb-cr?ref=0.3.10"
+  source = "git::https://github.com/tinycloud-labs/tf-modules.git//metallb-cr?ref=0.3.11"
 
 }
 

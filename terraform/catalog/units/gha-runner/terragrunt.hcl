@@ -7,7 +7,7 @@ include "root" {
 }
 
 terraform {
-  source = "git::https://github.com/tinycloud-labs/tf-modules.git//gha-runner?ref=0.3.10"
+  source = "git::https://github.com/tinycloud-labs/tf-modules.git//gha-runner?ref=0.3.11"
 
 }
 
