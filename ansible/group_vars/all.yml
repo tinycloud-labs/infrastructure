@@ -1,7 +1,7 @@
 ---
 domain: "shakir.cloud"
 custom_user: shakir
-default_user: debian
+default_user: shakir
 default_user_home: "/home/{{ default_user }}"
 default_timezone: America/Los_Angeles
 fqdn: "{{ inventory_hostname }}.{{ domain }}"
