@@ -6,14 +6,19 @@ set -e
 
 print_center() {
   echo ""
-  termwidth="$(tput cols)"
+  # avoids exit code != 0 when  there is no interactive terminal (e.g. in pipelines)
+  if [ -t 1 ] && [ -n "$TERM" ]; then
+    termwidth="$(tput cols)"
+  else
+    termwidth=80
+  fi
+
   padding="$(printf '%0.1s' -{1..500})"
   printf '%*.*s %s %*.*s\n' 0 "$(((termwidth-2-${#1})/2))" "$padding" "$1" 0 "$(((termwidth-1-${#1})/2))" "$padding"
 }
 
 lint() {
   ansible-lint --format pep8 -v --show-relpath \
-                --exclude roles/datadog.datadog \
                 --force-color  "$1"
 }
 

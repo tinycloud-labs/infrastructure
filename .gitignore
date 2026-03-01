@@ -54,3 +54,4 @@ terraform.rc
 admin
 admin-login
 .ansible*
+!.ansible-lint

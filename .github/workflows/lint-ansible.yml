@@ -14,8 +14,28 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ansible-lint
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install ansible-lint
+          ansible-lint --version
+
+      - name: Install Ansible collections
+        run: |
+          source .venv/bin/activate
+          cd ansible
+          ansible-galaxy collection install -r requirements.yml
+
       - name: Lint all Ansible playbooks
         run: |
+          source .venv/bin/activate
           cd ansible
           chmod +x lint.sh
           ./lint.sh

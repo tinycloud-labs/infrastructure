@@ -11,25 +11,57 @@
 - name: Check if /etc/motd exists
   ansible.builtin.stat:
     path: /etc/motd
-  register: motd_file
+  register: common_motd_file
 
 - name: Remove /etc/motd file (if exists)
   ansible.builtin.file:
     path: /etc/motd
     state: absent
-  when: motd_file.stat.exists
+  when: common_motd_file.stat.exists
+
+# generic dir for local configs
+- name: Ensure ~/.config exists
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.config"
+    state: directory
+    owner: "{{ default_user }}"
+    group: "{{ default_user }}"
+    mode: '0755'
+
+- name: Clone bashlogin repo
+  ansible.builtin.git:
+    repo: "https://github.com/tinycloud-labs/bashlogin.git"
+    dest: "{{ default_user_home }}/.config/bashlogin"
+    version: "main"
+    update: true
+    force: true
+  ignore_errors: true
+  become: true
+  become_user: "{{ default_user }}"
+  register: common_bashlogin_clone
+
+- name: Make main.sh executable
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.config/bashlogin/main.sh"
+    mode: '0755'
+  become: true
+  become_user: "{{ default_user }}"
+  when: common_bashlogin_clone is succeeded or common_bashlogin_clone is skipped
 
 - name: Add login info message
   ansible.builtin.blockinfile:
-    block: "{{ lookup('ansible.builtin.file', '{{ role_path }}/files/login') }}"
+    block: |
+      BASHLOGIN_ARGS={{ common_bashlogin_args | quote }}
+      source "$HOME/.config/bashlogin/main.sh"
     path: "{{ default_user_home }}/.bashrc"
     marker: "## {mark} ANSIBLE MANAGED BLOCK ##"
   no_log: true
+  when: common_bashlogin_clone is succeeded or common_bashlogin_clone is skipped
 
 - name: Set vim as the default editor
   ansible.builtin.command: update-alternatives --set editor /usr/bin/vim.basic
-  register: task_stdout
-  changed_when: task_stdout.rc != 0
+  register: common_task_stdout
+  changed_when: common_task_stdout.rc != 0
 
 - name: Backup and deploy /etc/hosts file
   ansible.builtin.template:

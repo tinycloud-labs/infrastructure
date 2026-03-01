@@ -15,8 +15,8 @@
   ansible.builtin.command:
     cmd: "mv /tmp/linux-amd64/helm {{ helm_install_path }}"
   become: true
-  register: task_stdout
-  changed_when: task_stdout.rc != 0
+  register: helm_task_stdout
+  changed_when: helm_task_stdout.rc != 0
 
 - name: Ensure helm is executable
   ansible.builtin.file:
