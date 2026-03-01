@@ -1,6 +1,7 @@
 ---
 # Bring in the k3s playbook that's installed via ansible-galaxy requirements.yml
-- import_playbook: k3s.orchestration.site
+- name: Deploy k3s cluster
+  import_playbook: k3s.orchestration.site
 
 - name: All nodes configuration
   hosts: all
@@ -14,7 +15,7 @@
   roles:
     - role: common
       vars:
-        bashlogin_args: "k3s qemu-guest-agent nfs-client.target"
+        common_bashlogin_args: "k3s qemu-guest-agent nfs-client.target"
 
 - name: Agent nodes configuration
   hosts: agent
@@ -22,7 +23,7 @@
   roles:
     - role: common
       vars:
-        bashlogin_args: "k3s-agent qemu-guest-agent nfs-client.target"
+        common_bashlogin_args: "k3s-agent qemu-guest-agent nfs-client.target"
 
 - name: Generate kubeconfig on Ansible server
   hosts: server
