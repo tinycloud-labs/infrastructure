@@ -19,7 +19,6 @@ print_center() {
 
 lint() {
   ansible-lint --format pep8 -v --show-relpath \
-                --exclude roles/datadog.datadog \
                 --force-color  "$1"
 }
 
