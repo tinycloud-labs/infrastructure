@@ -27,6 +27,11 @@ jobs:
           pip install ansible-lint
           ansible-lint --version
 
+      - name: Install Ansible collections
+        run: |
+          source .venv/bin/activate
+          ansible-galaxy collection install -r requirements.yml
+
       - name: Lint all Ansible playbooks
         run: |
           source .venv/bin/activate
