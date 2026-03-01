@@ -1,3 +1,2 @@
 # This file contains ignores rule violations for ansible-lint
 k3s_site.playbook.yml role-name[path]
-collections/ansible_collections/k3s_io/k3s_ansible/**
