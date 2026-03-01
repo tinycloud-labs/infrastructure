@@ -1,9 +1,9 @@
 ---
-# - name: Install common packages
-#   ansible.builtin.apt:
-#     name: "{{ common_packages }}"
-#     state: present
-#     update_cache: true
+- name: Install common packages
+  ansible.builtin.apt:
+    name: "{{ common_packages }}"
+    state: present
+    update_cache: true
 
 # motd: Message of the Day, is a text file disaplayed upon SSH login
 # typically found in Debian 11+. Safely removed here to print the
@@ -57,14 +57,6 @@
     marker: "## {mark} ANSIBLE MANAGED BLOCK ##"
   no_log: true
   when: bashlogin_clone is succeeded or bashlogin_clone is skipped
-
-# - name: Ensure bashlogin is sourced in .bashrc
-#   ansible.builtin.lineinfile:
-#     path: "{{ default_user_home }}/.bashrc"
-#     line: 'source "$HOME/.config/bashlogin/main.sh"  # Added by Ansible'
-#     insertafter: EOF
-#     state: present
-#   when: bashlogin_clone is succeeded or bashlogin_clone is skipped
 
 - name: Set vim as the default editor
   ansible.builtin.command: update-alternatives --set editor /usr/bin/vim.basic
