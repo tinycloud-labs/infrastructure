@@ -60,4 +60,3 @@
           }}
         mode: '0600'
         owner: '{{ custom_user }}'
-
