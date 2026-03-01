@@ -34,14 +34,25 @@
     dest: "{{ default_user_home }}/.config/bashlogin"
     version: "main"
     update: true
+    force: true
   ignore_errors: true
   become_user: "{{ default_user }}"
   register: bashlogin_clone
 
+- name: Make main.sh executable
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.config/bashlogin/main.sh"
+    mode: '0755'
+  become_user: "{{ default_user }}"
+  when: bashlogin_clone is succeeded or bashlogin_clone is skipped
+
 - name: Add login info message
   ansible.builtin.blockinfile:
     block: |
+
+      BASHLOGIN_ARGS={{ bashlogin_args | quote }}
       source "$HOME/.config/bashlogin/main.sh"
+
     path: "{{ default_user_home }}/.bashrc"
     marker: "## {mark} ANSIBLE MANAGED BLOCK ##"
   no_log: true
