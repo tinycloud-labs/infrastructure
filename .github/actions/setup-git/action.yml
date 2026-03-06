@@ -8,7 +8,7 @@ runs:
   using: "composite"
   steps:
     - name: Mark Repository as Safe
-      run: git config --global --add safe.directory ${{ inputs.repo-path }}
+      run: git config --global --add safe.directory "${{ github.workspace }}"
       shell: bash
 
     - name: Set up Git user
