@@ -1,4 +1,4 @@
-resource "kubernetes_storage_class" "nfs" {
+resource "kubernetes_storage_class_v1" "nfs" {
   metadata {
     name = var.class_name
     labels = {
