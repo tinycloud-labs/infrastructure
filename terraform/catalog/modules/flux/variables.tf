@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_unused_declarations
 variable "github_token" {
   description = "GitHub token"
   sensitive   = true

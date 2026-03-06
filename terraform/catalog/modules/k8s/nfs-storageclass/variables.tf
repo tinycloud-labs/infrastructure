@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_unused_declarations
 variable "config_path" {
   description = "Path to kubeconfig file relative to where this script will run"
   type        = string
