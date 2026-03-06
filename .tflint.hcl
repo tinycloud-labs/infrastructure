@@ -12,8 +12,9 @@ rule "terraform_typed_variables" {
   enabled = true
 }
 
+# Providers are managed by Terragrunt which is outside of tflint's visibility
 rule "terraform_required_providers" {
-  enabled = true
+  enabled = false
 }
 
 rule "terraform_comment_syntax" {
