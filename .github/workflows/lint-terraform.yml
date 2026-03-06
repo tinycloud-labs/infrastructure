@@ -26,7 +26,7 @@ jobs:
         run: cd terraform/catalog/modules && terraform fmt -recursive
 
       - name: Lint Terraform code
-        run: tflint --recursive  --chdir terraform/catalog/modules
+        run: tflint --recursive --config ${GITHUB_WORKSPACE}/.tflint.hcl --chdir terraform/catalog/modules
 
       - name: Commit changes
         run: |
