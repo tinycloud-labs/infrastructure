@@ -4,6 +4,7 @@ variable "config_path" {
   type        = string
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "config_context" {
   description = "The name of the kubeconfig context to use"
   type        = string

@@ -1,4 +1,3 @@
-# tflint-ignore: terraform_unused_declarations
 variable "github_token" {
   description = "GitHub token"
   sensitive   = true
@@ -16,12 +15,13 @@ variable "github_repository" {
   type        = string
 }
 
-
+# tflint-ignore: terraform_unused_declarations
 variable "config_context" {
   description = "The name of the kubeconfig context to use"
   type        = string
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "config_path" {
   description = "Path to cluster kube config file"
   type        = string
