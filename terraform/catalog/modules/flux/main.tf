@@ -1,4 +1,4 @@
-resource "kubernetes_namespace" "flux" {
+resource "kubernetes_namespace_v1" "flux" {
   metadata {
     name = var.kubernetes_namespace
     labels = {
