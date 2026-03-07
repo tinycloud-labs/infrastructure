@@ -65,5 +65,8 @@ unit "external-secrets" {
   values = {
     config_path    = local.common.locals.kubeconfig_path
     config_context = local.common.locals.kubeconfig_context
+    helm_set_values = {
+      "bitwarden-sdk-server.enabled" = true
+    }
   }
 }
