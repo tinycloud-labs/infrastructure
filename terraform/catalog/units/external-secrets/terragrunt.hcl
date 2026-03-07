@@ -12,6 +12,7 @@ terraform {
 
 # uses the module's default value for the kube-namespace (= external-secrets)
 inputs = {
-  config_path    = values.config_path
-  config_context = values.config_context
+  config_path     = values.config_path
+  config_context  = values.config_context
+  helm_set_values = values.helm_set_values
 }
