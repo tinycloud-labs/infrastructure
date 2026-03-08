@@ -9,9 +9,9 @@ resource "kubernetes_namespace_v1" "flux" {
 
 resource "flux_bootstrap_git" "this" {
   path      = var.path
-  namespace = kubernetes_namespace.flux.metadata[0].name
+  namespace = kubernetes_namespace_v1.flux.metadata[0].name
 
   # Prevent deleting Flux app-releases
   delete_git_manifests = false
-  depends_on           = [kubernetes_namespace.flux]
+  depends_on           = [kubernetes_namespace_v1.flux]
 }
