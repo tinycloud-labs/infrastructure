@@ -1,4 +1,4 @@
-name: Terragrunt Stack Deployment
+name: Terragrunt Manage Stack
 run-name: Terragrunt ${{ inputs.run-type }} - Stack ${{ github.event.inputs.stack }} Env ${{ github.event.inputs.environment }}
 
 on:
