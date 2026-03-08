@@ -63,12 +63,12 @@ unit "bw-secrets-manager" {
   source = "${get_repo_root()}/terraform/catalog/units/bw-secrets-manager"
   path   = "bw-secrets-manager"
   values = {
-    config_path    = local.common.locals.kubeconfig_path
-    config_context = local.common.locals.kubeconfig_context
-  kube_namespace  = "sm-operator-system"
-  chart_version   = "2.0.1"
-  release_name    = "sm-operator"
-  helm_repository = "https://charts.bitwarden.com/"
-  chart           = "bitwarden/sm-operator"
+    config_path     = local.common.locals.kubeconfig_path
+    config_context  = local.common.locals.kubeconfig_context
+    kube_namespace  = "sm-operator-system"
+    chart_version   = "2.0.1"
+    release_name    = "sm-operator"
+    helm_repository = "https://charts.bitwarden.com/"
+    chart           = "bitwarden/sm-operator"
   }
 }
