@@ -19,6 +19,14 @@ on:
         options:
           - infra
           - platform
+      run-type:
+        description: 'plan, apply, or destroy'
+        required: true
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
 
 jobs:
   stack:
@@ -26,3 +34,4 @@ jobs:
     secrets: inherit
     with:
       module-path: terraform/live/${{ inputs.environment }}/${{ inputs.stack }}
+      run-type: ${{ inputs.run-type }}
