@@ -12,6 +12,10 @@ on:
         required: false
         default: "controller"
         description: "Label of the self-hosted runner to use"
+      run-type:
+        type: string
+        required: true
+        description: "Use plan, apply, or destroy"
 
 env:
   working_dir: ${{ inputs.module-path }}
@@ -36,5 +40,5 @@ jobs:
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_dir: ${{ env.working_dir }}
-          tg_command: "stack run apply"
+          tg_command: "stack run ${{ inputs.run-type }}"
           tg_add_approve: true
