@@ -58,15 +58,3 @@ unit "flux" {
     path           = "clusters/prod"
   }
 }
-
-unit "external-secrets" {
-  source = "${get_repo_root()}/terraform/catalog/units/external-secrets"
-  path   = "external-secrets"
-  values = {
-    config_path    = local.common.locals.kubeconfig_path
-    config_context = local.common.locals.kubeconfig_context
-    helm_set_values = {
-      "bitwarden-sdk-server.enabled" = true
-    }
-  }
-}
