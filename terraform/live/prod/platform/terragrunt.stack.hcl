@@ -69,6 +69,6 @@ unit "bw-secrets-manager" {
     chart_version   = "2.0.1"
     release_name    = "sm-operator"
     helm_repository = "https://charts.bitwarden.com/"
-    chart           = "bitwarden/sm-operator"
+    chart           = "sm-operator"
   }
 }
