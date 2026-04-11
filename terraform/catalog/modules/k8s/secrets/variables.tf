@@ -35,6 +35,7 @@ variable "annotations" {
 variable "secret_data" {
   description = "Content of the K8s secret as a key:value pair"
   type        = map(string)
+  sensitive   = true
 }
 
 variable "type" {

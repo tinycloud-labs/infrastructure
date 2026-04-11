@@ -72,3 +72,27 @@ unit "bw-secrets-manager" {
     chart           = "sm-operator"
   }
 }
+
+# TODO: Chicken and egg stuff is going on here. Namespaces need to be pre-created
+# before creating these resources, so namespace creation needs to be moved out of Flux and placed here :(
+unit "bw_secret_apps" {
+  source = "${get_repo_root()}/terraform/catalog/units/bw-k8s-secret"
+  path   = "bw-k8s-secret"
+
+  values = {
+    kube_namespace = "apps"
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
+  }
+}
+
+unit "bw_secret_monitoring" {
+  source = "${get_repo_root()}/terraform/catalog/units/bw-k8s-secret"
+  path   = "bw-k8s-secret"
+
+  values = {
+    kube_namespace = "monitoring"
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
+  }
+}
