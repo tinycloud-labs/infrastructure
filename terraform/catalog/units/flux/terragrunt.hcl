@@ -18,7 +18,6 @@ terraform {
 inputs = {
   github_org        = values.github_org
   github_repository = values.github_repository
-  github_token      = get_env("TF_VAR_github_token")
   config_path       = values.config_path
   config_context    = values.config_context
   path              = values.path
