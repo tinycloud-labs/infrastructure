@@ -10,7 +10,7 @@ on:
       runner-label:
         type: string
         required: false
-        default: "controller"
+        default: "self-hosted"
         description: "Label of the self-hosted runner to use"
       run-type:
         type: string

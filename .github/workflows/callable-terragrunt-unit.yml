@@ -18,7 +18,7 @@ on:
       runner-label:
         type: string
         required: false
-        default: "controller"
+        default: "self-hosted"
         description: "Self-hosted runner label to use"
 
 env:
