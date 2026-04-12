@@ -38,7 +38,7 @@ jobs:
         uses: shakir85/checkout@v4
 
       - name: Deploy
-        uses: gruntwork-io/terragrunt-action@v3
+        uses: gruntwork-io/terragrunt-action@v3.2.0
         with:
           tg_dir: ${{ env.working_dir }}
           tg_command: "stack run ${{ inputs.run-type }}"
