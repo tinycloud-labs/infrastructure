@@ -19,3 +19,10 @@ inputs = {
   config_path    = values.config_path
   config_context = values.config_context
 }
+
+dependency "namespace" {
+  config_path = values.namespace_dependency_path
+  mock_outputs = {
+    name = "namespace-mock-output"
+  }
+}
