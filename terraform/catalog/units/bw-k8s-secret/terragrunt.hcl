@@ -14,7 +14,7 @@ inputs = {
   secret_name    = "bw-auth-token"
   kube_namespace = values.kube_namespace
   secret_data = {
-    "token" = base64encode(trimspace(get_env("TF_VAR_bw_token")))
+    "token" = trimspace(get_env("TF_VAR_bw_token"))
   }
   config_path    = values.config_path
   config_context = values.config_context
