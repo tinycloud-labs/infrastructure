@@ -10,7 +10,7 @@ on:
       runner-label:
         type: string
         required: false
-        default: "controller"
+        default: "self-hosted"
         description: "Label of the self-hosted runner to use"
       run-type:
         type: string
@@ -27,6 +27,7 @@ env:
   TF_VAR_github_app_installation_id: ${{ secrets.TF_VAR_GITHUB_APP_INSTALLATION_ID }}
   TF_VAR_github_app_private_key: ${{ secrets.TF_VAR_GH_APP_KEY }}
   TF_VAR_github_token: ${{ secrets.TF_VAR_GITHUB_TOKEN }}
+  TF_VAR_bw_token: ${{ secrets.TF_VAR_BW_TOKEN }}
 
 jobs:
   deploy:

@@ -10,17 +10,21 @@ variable "config_context" {
   type        = string
 }
 
-variable "class_name" {
-  description = "StorageClass resource name"
+variable "name" {
+  description = "K8s namespace resource name"
   type        = string
 }
 
-variable "server" {
-  description = "NFS server IPv4"
-  type        = string
+variable "annotations" {
+  description = "Resource annotations"
+  type        = map(string)
+  default     = {}
 }
 
-variable "share" {
-  description = "Name of the NFS share"
-  type        = string
+variable "labels" {
+  description = "Resource labels"
+  type        = map(string)
+  default = {
+    "app.kubernetes.io/managed-by" = "terraform"
+  }
 }
