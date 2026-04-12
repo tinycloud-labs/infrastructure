@@ -7,6 +7,6 @@ resource "kubernetes_secret_v1" "this" {
   }
 
   type = "Opaque"
-
+  # make sure to encode the value via base64encode()
   data = var.secret_data
 }
