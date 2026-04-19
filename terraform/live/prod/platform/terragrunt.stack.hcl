@@ -1,3 +1,10 @@
+#
+# Terragrunt stack for deploying - prod common dependencies needed before
+# Flux to connect and bootstrap operators/controllers with:
+#   - storage class
+#   - namespaces
+#   - various configs
+#
 locals {
   # TODO: maybe some improvements here? an include + expose?
   # it could be less verbose to handle kube things like this:
