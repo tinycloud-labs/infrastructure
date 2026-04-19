@@ -12,7 +12,7 @@ A Homelab Infrastructure as Code playground where I'm `uid=0`; i.e. I run the sh
 
 This repo uses [Terragrunt Explicit Stacks](https://docs.terragrunt.com/features/stacks#use-explicit-stacks-when) (with some opinionated design patterns) to provision VMs, install k3s and Flux, and do some basic setup. After that, Flux takes over to bootstrap the cluster and deploy apps, monitoring, and other stuff.
 
-This repo won’t work on anyone else's setup out of the box (that's intentional), but hopefully it gives you some ideas for using Terragrunt and Terraform together.
+This repo won't work on anyone else's setup out of the box (that's intentional), but hopefully it gives you some ideas for using Terragrunt and Terraform together.
 
 ### Deployment
 
