@@ -1,8 +1,6 @@
 #
 # Terragrunt stack for deploying - dev environment with:
 #   - Proxmox VMs + K3s Ansible playbook as a post-hook trigger
-#   - Cert Manager
-#   - Github Actions Runner Controller.
 #
 locals {
   common = read_terragrunt_config(find_in_parent_folders("common.hcl"))
@@ -37,15 +35,5 @@ unit "cluster" {
         ]
       },
     ]
-  }
-}
-
-unit "cert-manager" {
-  source = "${get_repo_root()}/terraform/catalog/units/cert-manager"
-  path   = "cert-manager"
-  values = {
-    kube_namespace = "cert-manager"
-    config_path    = local.common.locals.kubeconfig_path
-    config_context = local.common.locals.kubeconfig_context
   }
 }

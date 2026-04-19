@@ -1,63 +1,50 @@
-![GitHub](https://img.shields.io/github/v/release/tinycloud-labs/infrastructure) 
-![Terragrunt Stack](https://github.com/tinycloud-labs/infrastructure/actions/workflows/terragrunt-deploy-stack.yml/badge.svg) 
+![Terragrunt Stack](https://github.com/tinycloud-labs/infrastructure/actions/workflows/terragrunt-managed-stack.yml/badge.svg) 
 ![Terragrunt Environment](https://github.com/tinycloud-labs/infrastructure/actions/workflows/terragrunt-deploy-env.yml/badge.svg) 
 ![License](https://img.shields.io/github/license/tinycloud-labs/infrastructure) 
+![GitHub](https://img.shields.io/github/v/release/tinycloud-labs/infrastructure)
 ![Issues](https://img.shields.io/github/issues/tinycloud-labs/infrastructure)
+ 
+# `homelab/infrastructure`
 
-# Homelab
-
-A Homelab Infrastructure-as-Code playground where I'm `uid=0`; I run the show: root access, full chaos. Powered by K3s, Proxmox, and Helm, hosting a variety of self-hosted services deployed via FluxCD.
+A Homelab Infrastructure as Code playground where I'm `uid=0`; i.e. I run the show: root access, full chaos. Powered by k3s, FluxCD, and  a questionable collection of tools that somehow still work together.
 
 ## Design Rationale
 
-The IaC is constructed using the below K8s and Terragrunt logical design
+This repo uses [Terragrunt Explicit Stacks](https://docs.terragrunt.com/features/stacks#use-explicit-stacks-when) (with some opinionated design patterns) to provision VMs, install k3s and Flux, and do some basic setup. After that, Flux takes over to bootstrap the cluster and deploy apps, monitoring, and other stuff.
 
-### Kubernetes
+This repo won’t work on anyone else's setup out of the box (that's intentional), but hopefully it gives you some ideas for using Terragrunt and Terraform together.
+
+### Deployment
 
 K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Order of resource deployment is based on resource existence (dependency):
 
 ```
         ┌───────────────────────────────────────────┐
-        │       Applications (FluxCD + Helm)        │
+        │       Applications (Helm via Flux)        │
         └───────────────────┬───────────────────────┘
                             │ depends on
         ┌───────────────────▼───────────────────────┐
-        │          Platform  (Terragrunt)           │
-        │          MetalLB, Flux,  etc              │
+        │          Platform  (Kustomize/Flux)       │
+        │      MetalLB, NFS CSI,  operators, etc    │
         └───────────────────┬───────────────────────┘
                             │ depends on
         ┌───────────────────▼──────────────────────┐
         │   Infrastructure (Terragrunt + Ansible)  │
-        │                VMs + K3s.                │
+        │           VMs + K3s + FluxCD             │
         └──────────────────────────────────────────┘
 ```
-
-Each layer in the diagram is represented as a corresponding Terragrunt stack, [for example this one](https://github.com/stackgarage/homelab/tree/main/terraform/live/prod). Except the apps, they're managed separately by Flux.
 
 ### Terragrunt 
 
 Organized around the following logical hierarchy (using Terragrunt [stacks](https://terragrunt.gruntwork.io/docs/features/stacks/) and [units](https://terragrunt.gruntwork.io/docs/features/units/)):
 
-```
-Environment (prod/dev) > Stack > Units
-```
-
-
-| Environment | a collection of stacks representing the full environment (platform + infrastructure layers) |
-| --- | --- |
-| **Stack** | **a collection of units representing a complete middleware  layer (e.g., `terraform/live/prod/infra/`, etc)** |
-| **Unit** | **a Terragrunt thin wrapper around a Terraform module representing a specific tool or resource (e.g., `terraform/catalog/units/loadbalancer/`)**
-
-
-## Terraform State
-
-State files are dynamically generated on the first run (thanks to Terragrunt's `generate` blocks), constructed via the `terraform/root.hcl` and organized in S3 cleanly as:  `live/<env>/<stack>/.terragrunt-stack/<unit>` pretty much mirroring the repo's directory hierarchy (separation across boundaries).
 
 ## Automation and other stuff
-
-- Infrastructure: GitHub Actions to handle Terragrunt stacks and full-environment, as well as some helper workflows for code management.
+- Github Actions: provisions/controlls Terragrunt stacks and units, as well as some helper workflows for code management.
+- Renovate for automated dependency upgrades
 - Applications deployment: Hosted in a [separated repo](https://github.com/tinycloud-labs/flux), deployed in a GitOps fashion by FluxCD.
 - Helm Charts: Custom Helm charts released and hosted to Github Pages https://github.com/tinycloud-labs/helm
 
-## Networking (not in code)
+## Hardware/Networking (mostly not in code)
 - Pfsense: Firewall, DNS, HAProxy, VLANs, VPN, and ACME cert-management and rotation.
+- A bunch of potato hardware running the show, keeping a constantly pegged Proxmox alive (where engineering is about working within constraints, not just scaling with money!)
