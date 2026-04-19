@@ -34,11 +34,6 @@ K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Or
         └──────────────────────────────────────────┘
 ```
 
-### Terragrunt 
-
-Organized around the following logical hierarchy (using Terragrunt [stacks](https://terragrunt.gruntwork.io/docs/features/stacks/) and [units](https://terragrunt.gruntwork.io/docs/features/units/)):
-
-
 ## Automation and other stuff
 - Github Actions: provisions/controlls Terragrunt stacks and units, as well as some helper workflows for code management.
 - Renovate for automated dependency upgrades
