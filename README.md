@@ -27,7 +27,7 @@ K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Or
         │          Platform  (Kustomize/Flux)       │
         │      MetalLB, NFS CSI,  operators, etc    │
         └───────────────────┬───────────────────────┘
-                            │ depends on
+                            │ depends on (this repo)
         ┌───────────────────▼──────────────────────┐
         │   Infrastructure (Terragrunt + Ansible)  │
         │           VMs + K3s + FluxCD             │
