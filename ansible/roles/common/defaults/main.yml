@@ -6,7 +6,6 @@ common_packages:
   - rsync
   - python3-pip
   - ca-certificates
-  - software-properties-common
   - apt-transport-https
   - gnupg
   - lsb-release
