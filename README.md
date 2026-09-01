@@ -6,7 +6,7 @@
  
 # `homelab/infrastructure`
 
-A Homelab Infrastructure as Code playground where I'm `uid=0`; i.e. I run the show: root access, full chaos. Powered by k3s, FluxCD, and  a questionable collection of tools that somehow still work together.
+A Homelab Infrastructure as Code playground where I'm `uid=0`; i.e. I run the show: root access, full chaos. Powered by k3s, FluxCD, and a collection of tools that somehow still work together.
 
 ## Design Rationale
 
@@ -42,4 +42,4 @@ K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Or
 
 ## Hardware/Networking (mostly not in code)
 - Pfsense: Firewall, DNS, HAProxy, VLANs, VPN, and ACME cert-management and rotation.
-- A bunch of potato hardware running the show, keeping a constantly pegged Proxmox alive (where engineering is about working within constraints, not just scaling with money!)
+- A bunch of potato hardware running the show
