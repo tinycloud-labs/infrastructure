@@ -1,0 +1,10 @@
+---
+# Play for base-configs for non-k3s VMs
+- name: Base configuration
+  hosts: server
+  become: true
+  roles:
+    - role: nfs
+    - role: common
+      vars:
+        common_bashlogin_args: "k3s qemu-guest-agent nfs-client.target"
