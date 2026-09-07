@@ -42,4 +42,3 @@ K3s deployed via [Ansible collection](https://github.com/k3s-io/k3s-ansible). Or
 
 ## Hardware/Networking (mostly not in code)
 - Pfsense: Firewall, DNS, HAProxy, VLANs, VPN, and ACME cert-management and rotation.
-- A bunch of potato hardware running the show
