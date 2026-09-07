@@ -1,10 +1,6 @@
 #
-# Testing new debain cloud images
+# A VMs group for testing. Deployed manually. Share the same terragrun-hook and tf-state.
 #
-locals {
-  common = read_terragrunt_config(find_in_parent_folders("common.hcl"))
-}
-
 unit "cluster" {
   source = "${get_repo_root()}/terraform/catalog/units/vms"
   path   = "vms"
@@ -16,7 +12,7 @@ unit "cluster" {
     description       = "Managed by Terragrunt."
     cluster = [
       {
-        # singe vm
+        # single vm
         name  = "sandbox"
         size  = "small"
         count = 1

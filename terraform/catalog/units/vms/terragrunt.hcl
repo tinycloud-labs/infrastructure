@@ -1,5 +1,5 @@
 #
-# Provisions a barebones VM group. No Ansible playbooks hooks.
+# Provisions a barebones VM group.
 #
 include "proxmox" {
   path = "${get_repo_root()}/terraform/catalog/units/proxmox-provider.hcl"
@@ -19,4 +19,5 @@ inputs = {
 
 terraform {
   source = "${get_repo_root()}/terraform/catalog/modules/proxmox/cluster"
+  # TODO: add base Ansible configutation - see legacy repo
 }
