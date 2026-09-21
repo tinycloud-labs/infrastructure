@@ -5,6 +5,9 @@ on:
     types: [ opened, synchronize, reopened ]
     paths: [ "terraform/catalog/modules/**" ]
 
+permissions:
+  contents: write
+
 jobs:
   code-lint:
     runs-on: ubuntu-latest
