@@ -28,8 +28,16 @@ k3s_cluster:
     api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
 
     # Optional vars
-    # Shakir: Disable this if you're using MetalLB
-    extra_server_args: "--disable=servicelb"
+    # Shakir:
+    # `--disable=servicelb` to use MetalLB instead
+    # labels are required by https://github.com/sergelogvinov/proxmox-csi-plugin
+    extra_server_args: >-
+      --disable=servicelb
+      --node-label=topology.kubernetes.io/region=homelab
+      --node-label=topology.kubernetes.io/zone=pve1
+    extra_agent_args: >-
+      --node-label=topology.kubernetes.io/region=homelab
+      --node-label=topology.kubernetes.io/zone=pve1
     # extra_agent_args: ""
     # extra_install_envs: { 'INSTALL_K3S_SKIP_SELINUX_RPM': 'true' }
     # cluster_context: k3s-ansible
