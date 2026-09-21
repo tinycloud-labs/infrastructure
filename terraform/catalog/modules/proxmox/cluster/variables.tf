@@ -60,5 +60,5 @@ variable "mac_address" {
 }
 
 variable "tags" {
-    tpye = list(string)
+    type = list(string)
 }
