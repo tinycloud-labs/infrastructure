@@ -17,7 +17,7 @@ inputs = {
   description       = values.description
   cluster           = values.cluster
   env               = values.env
-  tags = values.tags
+  tags              = values.tags
 }
 
 locals {

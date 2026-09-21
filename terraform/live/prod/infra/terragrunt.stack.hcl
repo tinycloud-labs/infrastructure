@@ -16,7 +16,7 @@ unit "cluster" {
     cloud_image_info  = ["synology", "debian-13-generic-amd64-20260831-2587.qcow2.img"]
     description       = "Managed by Terragrunt."
     env               = "prod" # for pulling the correct inventory file
-    tags = ["terragrunt"]
+    tags              = ["terragrunt"]
     cluster = [
       {
         # Control plane
