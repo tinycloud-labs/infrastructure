@@ -24,5 +24,5 @@ dependency "namespace" {
   config_path = values.namespace_dependency_path
   mock_outputs = {
     namespace_output = "mock-namespace-output"
-    }
+  }
 }

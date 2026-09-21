@@ -58,3 +58,7 @@ variable "mac_address" {
   type    = string
   default = null
 }
+
+variable "tags" {
+    tpye = list(string)
+}

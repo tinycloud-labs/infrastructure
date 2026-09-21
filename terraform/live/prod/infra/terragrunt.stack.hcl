@@ -12,10 +12,11 @@ unit "cluster" {
 
   values = {
     proxmox_node_name = "pve1"
-    disk_name         = "sdd"
-    cloud_image_info  = ["sdc", "debian-13-generic-amd64.qcow2.img"]
+    disk_name         = "tank"
+    cloud_image_info  = ["synology", "debian-13-generic-amd64-20260831-2587.qcow2.img"]
     description       = "Managed by Terragrunt."
     env               = "prod" # for pulling the correct inventory file
+    tags              = ["terragrunt"]
     cluster = [
       {
         # Control plane
