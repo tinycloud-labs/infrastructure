@@ -7,8 +7,8 @@ unit "cluster" {
 
   values = {
     proxmox_node_name = "pve1"
-    disk_name         = "sdc"
-    cloud_image_info  = ["sdc", "debian-13-generic-amd64.qcow2.img"]
+    disk_name         = "tank"
+    cloud_image_info  = ["synology", "debian-13-generic-amd64-20260831-2587.qcow2.img"]
     description       = "Managed by Terragrunt."
     cluster = [
       {
