@@ -9,3 +9,8 @@ unit "cloud-image-deb13" {
     datastore_id      = "synology"
   }
 }
+
+unit "iam-csi-plugin" {
+  source = "${get_repo_root()}/terraform/catalog/units/iam-csi-plugin"
+  path   = "iam-csi-plugin"
+}
