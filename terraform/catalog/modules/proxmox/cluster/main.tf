@@ -11,6 +11,7 @@ locals {
         size = c.size
         idx  = i
         mac  = try(c.macs[i], null) # safely look up MAC if provided
+        vmid = try(c.vmids[i], null)
       }
     ]
   ])
@@ -19,7 +20,7 @@ locals {
 module "cluster" {
   for_each = { for c in local.expanded : "${c.name}-${c.idx}" => c }
 
-  source              = "git::https://github.com/tinycloud-labs/tf-modules.git//proxmox/vm?ref=1.1.0"
+  source              = "git::https://github.com/tinycloud-labs/tf-modules.git//proxmox/vm?ref=1.2.3"
   hostname            = "${each.value.name}-${each.value.idx}"
   memory              = local.node_specs[each.value.size].memory
   cores               = local.node_specs[each.value.size].cores
@@ -35,6 +36,8 @@ module "cluster" {
   sockets             = 1
   description         = var.description
   mac_address         = each.value.mac
-    snippet_store_id = "synology"
-    tags = var.tags
+  vm_id               = each.value.vmid
+  enable_smbios       = true
+  snippet_store_id    = "synology"
+  tags                = var.tags
 }
