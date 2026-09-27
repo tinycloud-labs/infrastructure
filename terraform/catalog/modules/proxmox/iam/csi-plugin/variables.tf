@@ -3,12 +3,12 @@
 # ------------------------
 # tflint-ignore: terraform_unused_declarations
 variable "pve_user" {
-    type = string
+  type = string
 }
 
 # tflint-ignore: terraform_unused_declarations
 variable "pve_pwd" {
-    type = string
+  type = string
 }
 
 # ------------------------

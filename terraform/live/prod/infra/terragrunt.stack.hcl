@@ -24,6 +24,7 @@ unit "cluster" {
         size  = "medium"
         count = 1
         macs  = ["82:79:52:6f:eb:f7"]
+        vmids = [201]
       },
       {
         # Node group - medium
@@ -36,6 +37,7 @@ unit "cluster" {
           "de:b2:c6:43:d8:7b",
           "62:6a:7a:72:b8:18"
         ]
+        vmids = [202, 203, 204, 205]
       },
     ]
   }

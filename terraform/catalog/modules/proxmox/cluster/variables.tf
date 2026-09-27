@@ -51,6 +51,7 @@ variable "cluster" {
     size  = string
     count = number
     macs  = optional(list(string), [])
+    vmids = optional(list(string), [])
   }))
 }
 
@@ -59,6 +60,11 @@ variable "mac_address" {
   default = null
 }
 
+variable "vm_id" {
+  type    = number
+  default = null
+}
+
 variable "tags" {
-    type = list(string)
+  type = list(string)
 }
