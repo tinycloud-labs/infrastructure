@@ -63,6 +63,17 @@ unit "namespace_monitoring" {
   }
 }
 
+unit "namespace_csi-proxmox" {
+  source = "${get_repo_root()}/terraform/catalog/units/namespace"
+  path   = "namespace-csi-proxmox"
+
+  values = {
+    name           = "csi-proxmox"
+    config_path    = local.common.locals.kubeconfig_path
+    config_context = local.common.locals.kubeconfig_context
+  }
+}
+
 # namespace scoped tokens
 unit "bw_secret_apps" {
   source = "${get_repo_root()}/terraform/catalog/units/bw-k8s-secret"
@@ -83,6 +94,18 @@ unit "bw_secret_monitoring" {
   values = {
     kube_namespace            = "monitoring"
     namespace_dependency_path = "../namespace-monitoring"
+    config_path               = local.common.locals.kubeconfig_path
+    config_context            = local.common.locals.kubeconfig_context
+  }
+}
+
+unit "bw_secret_csi-proxmox" {
+  source = "${get_repo_root()}/terraform/catalog/units/bw-k8s-secret"
+  path   = "bw-secret-csi-proxmox"
+
+  values = {
+    kube_namespace            = "csi-proxmox"
+    namespace_dependency_path = "../namespace-csi-proxmox"
     config_path               = local.common.locals.kubeconfig_path
     config_context            = local.common.locals.kubeconfig_context
   }
