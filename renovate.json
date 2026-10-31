@@ -53,6 +53,12 @@
       "groupName": "terraform"
     },
     {
+      "description": "ansible-core 2.21 supports Python <= 3.14; lift once ansible-core supports 3.15",
+      "matchFileNames": [".github/workflows/lint-ansible.yml"],
+      "matchDepNames": ["python"],
+      "allowedVersions": "<3.15"
+    },
+    {
       "description": "k3s tags carry a +k3sN build suffix that semver ignores",
       "matchPackageNames": ["k3s-io/k3s"],
       "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\+k3s(?<build>\\d+)$"
