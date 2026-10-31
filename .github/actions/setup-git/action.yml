@@ -2,14 +2,17 @@ name: 'Setup Git'
 description: 'Set up Git user and repository for GitHub Actions'
 inputs:
   repo-path:
-    description: 'Path to the repository'
-    required: true
+    description: 'Path to the repository to mark as a safe directory (defaults to $GITHUB_WORKSPACE)'
+    required: false
+    default: ""
 runs:
   using: "composite"
   steps:
     - name: Mark Repository as Safe
-      run: git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+      run: git config --global --add safe.directory "${REPO_PATH:-$GITHUB_WORKSPACE}"
       shell: bash
+      env:
+        REPO_PATH: ${{ inputs.repo-path }}
 
     - name: Set up Git user
       run: |
