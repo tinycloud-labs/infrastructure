@@ -17,6 +17,7 @@ k3s_cluster:
     env: prod
     ansible_port: 22
     ansible_user: debian
+    # renovate: datasource=github-releases depName=k3s-io/k3s
     k3s_version: v1.36.4+k3s1
     # The token should be a random string of reasonable length. You can generate
     # one with the following commands:

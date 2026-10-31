@@ -38,16 +38,16 @@ jobs:
     runs-on: ${{ inputs.runner-label }}
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: shakir85/checkout@v4
+      - uses: actions/checkout@v7.0.1
 
       - name: Generate Stack
-        uses: gruntwork-io/terragrunt-action@v3
+        uses: gruntwork-io/terragrunt-action@v3.4.1
         with:
           tg_dir: ${{ env.working_dir }}
           tg_command: "stack generate --source-update"
 
       - name: Manage Terragrunt Unit
-        uses: gruntwork-io/terragrunt-action@v3
+        uses: gruntwork-io/terragrunt-action@v3.4.1
         with:
           tg_dir: ${{ env.working_dir }}/.terragrunt-stack/${{ inputs.unit-name }}
           tg_command: "stack run ${{ inputs.run-type }}"

@@ -2,5 +2,60 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Provider pins inside Terragrunt generate heredocs (e.g. units/flux-provider.hcl), which the terraform manager never parses",
+      "managerFilePatterns": [
+        "/^terraform/.+\\.hcl$/"
+      ],
+      "matchStrings": [
+        "source\\s*=\\s*\"(?<depName>[\\w-]+/[\\w-]+)\"\\s*\\n\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "terraform-provider",
+      "versioningTemplate": "hashicorp"
+    },
+    {
+      "customType": "regex",
+      "description": "Terraform core constraints in root.hcl: terraform_version_constraint and the generated required_version",
+      "managerFilePatterns": [
+        "/^terraform/.+\\.hcl$/"
+      ],
+      "matchStrings": [
+        "(?:terraform_version_constraint|required_version)\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "depNameTemplate": "hashicorp/terraform",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "hashicorp",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Ansible vars annotated with a '# renovate: datasource=... depName=...' comment on the line above",
+      "managerFilePatterns": [
+        "/^ansible/.+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)\\s*\\n\\s*[\\w-]+:\\s*\"?(?<currentValue>[^\"\\s]+)\"?"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["*"],
+      "matchDatasources": ["docker"],
+      "pinDigests": true
+    },
+    {
+      "description": "One PR bumps Terraform in mise.toml and the root.hcl constraints together",
+      "matchPackageNames": ["hashicorp/terraform", "terraform"],
+      "groupName": "terraform"
+    },
+    {
+      "description": "k3s tags carry a +k3sN build suffix that semver ignores",
+      "matchPackageNames": ["k3s-io/k3s"],
+      "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\+k3s(?<build>\\d+)$"
+    }
   ]
 }
