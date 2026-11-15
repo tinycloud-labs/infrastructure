@@ -20,7 +20,7 @@ locals {
 module "cluster" {
   for_each = { for c in local.expanded : "${c.name}-${c.idx}" => c }
 
-  source              = "git::https://github.com/tinycloud-labs/tf-modules.git//proxmox/vm?ref=1.2.3"
+  source              = "git::https://github.com/tinycloud-labs/tf-modules.git//proxmox/vm?ref=vm-v3.0.0"
   hostname            = "${each.value.name}-${each.value.idx}"
   memory              = local.node_specs[each.value.size].memory
   cores               = local.node_specs[each.value.size].cores
@@ -34,6 +34,7 @@ module "cluster" {
   discard_disk        = "on"
   file_format         = "raw"
   sockets             = 1
+  cpu_type            = "x86-64-v2-AES"
   description         = var.description
   mac_address         = each.value.mac
   vm_id               = each.value.vmid
