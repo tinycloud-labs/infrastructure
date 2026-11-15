@@ -6,7 +6,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Provider pins inside Terragrunt generate heredocs (e.g. units/flux-provider.hcl), which the terraform manager never parses",
+      "description": "Provider pins inside Terragrunt generate heredocs (e.g. units/proxmox-provider.hcl), which the terraform manager never parses",
       "managerFilePatterns": [
         "/^terraform/.+\\.hcl$/"
       ],
@@ -29,6 +29,16 @@
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "hashicorp",
       "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Terragrunt values annotated with a '# renovate: datasource=... depName=...' comment on the line above (e.g. flux_version in live/prod/platform)",
+      "managerFilePatterns": [
+        "/^terraform/.+\\.hcl$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)\\s*\\n\\s*[\\w-]+\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+      ]
     },
     {
       "customType": "regex",
@@ -57,6 +67,12 @@
       "matchFileNames": [".github/workflows/lint-ansible.yml"],
       "matchDepNames": ["python"],
       "allowedVersions": "<3.15"
+    },
+    {
+      "description": "flux_version is an x-range (e.g. 2.10.x): the Flux Operator applies patches itself, Renovate opens a PR per new minor. Tags are v-prefixed",
+      "matchPackageNames": ["fluxcd/flux2"],
+      "versioning": "npm",
+      "extractVersion": "^v(?<version>.+)$"
     },
     {
       "description": "k3s tags carry a +k3sN build suffix that semver ignores",
