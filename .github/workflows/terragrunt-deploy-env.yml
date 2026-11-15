@@ -8,9 +8,8 @@ on:
         description: 'Which environment to deploy'
         required: true
         type: choice
-        default: 'dev'
+        default: 'prod'
         options:
-          - dev
           - prod
 
 jobs:

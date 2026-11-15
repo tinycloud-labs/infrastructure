@@ -8,9 +8,8 @@ on:
         description: 'Target environment'
         required: true
         type: choice
-        default: 'dev'
+        default: 'prod'
         options:
-          - dev
           - prod
       stack:
         description: 'Target stack'
